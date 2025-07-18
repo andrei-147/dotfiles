@@ -29,12 +29,15 @@ alias find='fzf --preview "cat {}"'
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :100 {} || cat {}" --preview-window=right:60%'
+export FZF_DEFAULT_COMMAND='find . -type d \( -path "./.steam" -o -path "./.cache" \) -prune -o -print'
 export PATH="$PATH:$HOME/.local/bin"
 
 eval "$(starship init bash)"
 
 alias ls='ls -a --color=auto'
 alias grep='grep --color=auto'
-alias setup-project='/usr/bin/setup-proj'
-alias build-project='/usr/bin/build-proj'
+alias clf='clear;neofetch'
+alias setup-project='~/.local/bin/setup-proj.sh'
+alias build-project='~/.local/bin/build-proj.sh'
 PS1='[\u@\h \W]\$ '

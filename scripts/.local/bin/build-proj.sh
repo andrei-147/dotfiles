@@ -88,10 +88,10 @@ libs=()
 # Recursively find all .a files in dependencies/lib
 while IFS= read -r -d '' lib; do
   libs+=("$lib")
-done < <(find "$mainDir/dependencies/lib" -name '*.a' -type f -print0)
+done < <(find "$mainDir/dependencies/lib" -name '*.so' -type f -print0)
 
 exe_file="$build_dir/app"
-gcc "${obj_files[@]}" "${libs[@]}" -o "$exe_file"
+g++ "${obj_files[@]}" "${libs[@]}" -o "$exe_file"
 if [[ $? -ne 0 ]]; then
   echo "Linking failed."
   exit 1
@@ -105,4 +105,5 @@ echo "Build complete. Executable at: $exe_file"
 
 if [[ -x "$exe_file" ]]; then
   "$exe_file"
+  echo
 fi
